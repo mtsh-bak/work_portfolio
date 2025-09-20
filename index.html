@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Your Name — Engineering Student & Finance Projects</title>
+<meta name="description" content="Portfolio — engineering student focused on finance projects and competitions. Minimal, clean UI for sharing projects, PPTs, PDFs and docs." />
+<style>
+  /* Minimal, aesthetic styles — no frameworks needed */
+  :root{
+    --bg: #fbfbfd;
+    --panel: #ffffff;
+    --muted: #6b7280;
+    --accent: #2563eb; /* blue */
+    --glass: rgba(255,255,255,0.6);
+    --card-shadow: 0 6px 20px rgba(13,17,30,0.06);
+    --radius: 12px;
+    color-scheme: light;
+  }
+  [data-theme="dark"]{
+    --bg: #0b1020;
+    --panel: #071021;
+    --muted: #9ca3af;
+    --accent: #60a5fa;
+    --glass: rgba(255,255,255,0.03);
+    --card-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,var(--bg),var(--glass));
+    color:var(--muted);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:32px;
+  }
+  .container{max-width:1100px;margin:0 auto;}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+  .brand{display:flex;gap:14px;align-items:center}
+  .logo{
+    width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;box-shadow:var(--card-shadow)
+  }
+  .brand h1{margin:0;font-size:18px;color:inherit}
+  .nav-actions{display:flex;gap:8px;align-items:center}
+  button.btn{
+    border:0;padding:10px 14px;border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;font-weight:600;
+  }
+  button.primary{background:var(--accent);color:white;box-shadow:0 6px 18px rgba(37,99,235,0.18)}
+  .hero{
+    display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin-bottom:28px;
+  }
+  .card{
+    background:var(--panel);border-radius:var(--radius);padding:22px;box-shadow:var(--card-shadow);
+  }
+  .tagline{color:var(--accent);font-weight:700;margin-bottom:10px}
+  .lead{font-size:18px;color:inherit;margin-bottom:18px}
+  .cta{display:flex;gap:10px}
+  .avatar{width:100%;height:100%;border-radius:10px;object-fit:cover}
+  .about{display:flex;gap:18px;align-items:flex-start}
+  .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .skill{padding:8px 10px;border-radius:999px;background:linear-gradient(180deg, rgba(0,0,0,0.03),rgba(0,0,0,0.01));font-size:13px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
+  .project-card{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));cursor:pointer;transition:transform .18s ease, box-shadow .18s ease;}
+  .project-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.06)}
+  .project-title{font-weight:700;color:inherit;margin-bottom:8px}
+  .project-meta{font-size:13px;color:var(--muted)}
+  footer{margin-top:40px;text-align:center;color:var(--muted);font-size:13px}
+  .small{font-size:13px;color:var(--muted)}
+  /* modal */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+  .modal{max-width:920px;width:100%;border-radius:12px;padding:18px;background:var(--panel);box-shadow:var(--card-shadow);max-height:88vh;overflow:auto}
+  .close{border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--muted)}
+  .doc-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+  .doc-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;border-radius:10px;background:linear-gradient(0deg, rgba(0,0,0,0.03), rgba(0,0,0,0.01))}
+  .doc-item a{font-weight:600;color:var(--accent);text-decoration:none}
+  /* responsive */
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:14px}
+  }
+  /* small helper */
+  .muted{color:var(--muted);font-size:14px}
+  input[type="file"]{display:none}
+  .uploader{display:flex;gap:8px;align-items:center}
+  .empty{opacity:.6;padding:18px;border-radius:10px;background:linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01))}
+</style>
+</head>
+<body>
+<div class="container" id="app" data-theme="light">
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="logo" id="logo">NB</div>
+      <div>
+        <h1 id="siteName">Your Name</h1>
+        <div class="small muted">Engineering student • Finance projects & competitions</div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn" id="themeToggle" title="Toggle light/dark">🌙</button>
+      <a class="btn primary" href="#projects">View Work</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="card">
+      <div class="tagline" id="tagline">Engineering Student • Finance Enthusiast • Problem Solver</div>
+      <div class="lead" id="intro">Hi — I'm <strong id="fullName">Your Name</strong>, a third-year engineering student building finance projects, research and trading tools. I enjoy quantitative analysis, clean UX, and transforming ideas into reproducible projects.</div>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See Projects</a>
+        <a class="btn" href="#docs">Docs & PPTs</a>
+      </div>
+
+      <div style="margin-top:18px">
+        <h3 style="margin:0 0 8px 0">Skills</h3>
+        <div class="skills" id="skillsList">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+
+    <aside class="card" style="display:flex;flex-direction:column;gap:12px;align-items:center">
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop&crop=faces" alt="profile" class="avatar" />
+      <div style="width:100%;display:flex;gap:8px;justify-content:space-between">
+        <a class="btn" href="mailto:you@example.com">Contact</a>
+        <a class="btn" target="_blank" rel="noopener" href="#">LinkedIn</a>
+      </div>
+      <div class="small muted" style="margin-top:6px;text-align:center">Tip: add your resume to the Docs section for direct download.</div>
+    </aside>
+  </section>
+
+  <!-- About + Projects -->
+  <section>
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:12px">
+      <h2 id="projects">Projects & Competitions</h2>
+      <div class="small muted">Click a project to view details</div>
+    </div>
+
+    <div class="grid" id="projectsGrid">
+      <!-- cards injected by JS -->
+    </div>
+  </section>
+
+  <!-- Documents -->
+  <section style="margin-top:26px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h2 id="docs">Docs & PPTs</h2>
+      <div class="small muted">Host files in <code>/docs/</code> on this repo; edit SITE_DATA.docs[] to add entries.</div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="muted">Uploaded documents</div>
+        <div class="doc-list" id="docsList"></div>
+
+        <div style="margin-top:10px;display:flex;align-items:center;gap:8px">
+          <label class="btn" for="localFile">Preview local file</label>
+          <input id="localFile" type="file" accept=".pdf,.ppt,.pptx,.docx" />
+          <div class="small muted">Local preview won't be published — to publish add file to repo/docs/ and update SITE_DATA.docs</div>
+        </div>
+
+        <div id="previewContainer" style="margin-top:12px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section style="margin-top:24px;display:flex;gap:16px;flex-wrap:wrap">
+    <div class="card" style="flex:1;min-width:260px">
+      <h3>Get in touch</h3>
+      <form id="contactForm">
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+          <input type="text" id="name" placeholder="Your name" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required />
+          <input type="email" id="email" placeholder="Your email" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required />
+          <textarea id="message" placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required></textarea>
+          <div style="display:flex;gap:8px">
+            <button type="submit" class="btn primary">Send</button>
+            <a class="btn" href="mailto:you@example.com">Email</a>
+          </div>
+        </div>
+      </form>
+      <div id="contactNote" class="small muted" style="margin-top:8px"></div>
+    </div>
+
+    <div class="card" style="min-width:260px">
+      <h3>How to publish documents</h3>
+      <ol style="margin:0 0 0 18px;color:var(--muted)">
+        <li>Upload your PDF / PPTX / DOCX to <code>/docs/</code> in the GitHub repo (via web UI or git).</li>
+        <li>Edit the `SITE_DATA.docs` array in <code>index.html</code> to add an entry with `{name: "...", file: "docs/yourfile.pdf"}`.</li>
+        <li>Commit & push; GitHub Pages will serve them and they'll appear here.</li>
+      </ol>
+      <div class="small muted" style="margin-top:8px">Tip: PDFs embed directly. PPTX will download on most browsers; convert to PDF for in-browser view.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="small muted">Built with a minimalist aesthetic • Edit content inside the file (SITE_DATA)</div>
+  </footer>
+</div>
+
+<!-- Modal -->
+<div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-hidden="true">
+  <div class="modal" role="document" aria-modal="true">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h3 id="modalTitle" style="margin:0"></h3>
+        <div id="modalSubtitle" class="small muted"></div>
+      </div>
+      <div>
+        <button class="close" id="closeModal">✕</button>
+      </div>
+    </div>
+    <div id="modalBody" style="margin-top:12px"></div>
+  </div>
+</div>
+
+<script>
+/*
+  SITE_DATA: Edit this to add your name, projects, skills, and docs.
+  Usage:
+    - Add project objects to projects[]; each project can have title, tag, short, long, links[]
+    - Add docs to docs[] with {name, file} where file is the path under the repo (e.g. "docs/resume.pdf")
+*/
+const SITE_DATA = {
+  fullName: "Your Name",
+  tagline: "Engineering Student • Finance Enthusiast • Problem Solver",
+  intro: "Hi — I'm Your Name, a third-year engineering student focused on finance-related projects, research and competitions. I build reproducible analysis and clean interfaces.",
+  skills: ["Python", "Pandas", "Excel", "SQL", "Financial Modelling", "React (basic)", "Notion"],
+  projects: [
+    {
+      id: "p1",
+      title: "Equity Research — Stock XYZ",
+      tag: "Equity Research",
+      short: "Valuation and investment thesis for XYZ (NIFTY 100).",
+      long: "Built a fundamental research report covering cash flow analysis, DCF, multiples and sensitivity tables. Included backtested recommendation performance over 2020–2024.",
+      links: [
+        {label: "Read report (PDF)", url: "docs/eq_research_xyz.pdf"},
+        {label: "Presentation (PPTX)", url: "docs/eq_research_xyz_presentation.pdf"}
+      ]
+    },
+    {
+      id: "p2",
+      title: "Trading Journal Template",
+      tag: "Trading Tools",
+      short: "A Notion-based trading journal with performance analytics.",
+      long: "Design and implementation of a trading journal that calculates returns, risk metrics and logs trades for continuous improvement.",
+      links: [
+        {label: "Template (Notion)", url: "https://www.notion.so/"}
+      ]
+    }
+  ],
+  docs: [
+    {name: "Resume", file: "docs/resume.pdf"},
+    {name: "Research — XYZ", file: "docs/eq_research_xyz.pdf"}
+  ],
+  contactEmail: "you@example.com"
+};
+
+/* --- Page population & behavior --- */
+const app = document.getElementById('app');
+document.getElementById('siteName').innerText = SITE_DATA.fullName;
+document.getElementById('tagline').innerText = SITE_DATA.tagline;
+document.getElementById('intro').innerText = SITE_DATA.intro;
+document.getElementById('fullName').innerText = SITE_DATA.fullName;
+document.getElementById('logo').innerText = SITE_DATA.fullName.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase();
+
+const skillsList = document.getElementById('skillsList');
+SITE_DATA.skills.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'skill';
+  el.innerText = s;
+  skillsList.appendChild(el);
+});
+
+// Projects
+const projectsGrid = document.getElementById('projectsGrid');
+SITE_DATA.projects.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'project-card card';
+  card.tabIndex = 0;
+  card.innerHTML = `
+    <div class="project-title">${p.title}</div>
+    <div class="project-meta">${p.tag} • ${p.short}</div>
+  `;
+  card.addEventListener('click', ()=>openProject(p));
+  card.addEventListener('keydown', (e)=>{ if(e.key==='Enter') openProject(p) });
+  projectsGrid.appendChild(card);
+});
+
+function openProject(p){
+  const mb = document.getElementById('modalBody');
+  document.getElementById('modalTitle').innerText = p.title;
+  document.getElementById('modalSubtitle').innerText = p.tag;
+  mb.innerHTML = `<p style="margin-top:0;color:var(--muted)">${p.long}</p>`;
+  if(p.links && p.links.length){
+    const list = document.createElement('div');
+    list.className = 'doc-list';
+    p.links.forEach(l=>{
+      const it = document.createElement('div');
+      it.className = 'doc-item';
+      let href = l.url;
+      // if file looks like docs/... then make relative link
+      it.innerHTML = `<div style="font-weight:600">${l.label}</div><div><a target="_blank" rel="noopener" href="${href}">Open</a></div>`;
+      list.appendChild(it);
+    });
+    mb.appendChild(list);
+  }
+  showModal();
+}
+
+// Docs list
+const docsList = document.getElementById('docsList');
+function renderDocs(){
+  docsList.innerHTML = '';
+  if(!SITE_DATA.docs || SITE_DATA.docs.length===0){
+    docsList.innerHTML = `<div class="empty">No documents listed. Add file paths to SITE_DATA.docs in this file.</div>`;
+    return;
+  }
+  SITE_DATA.docs.forEach(d=>{
+    const it = document.createElement('div');
+    it.className = 'doc-item';
+    const fileUrl = d.file;
+    // Show embed if PDF
+    let openEl = `<a target="_blank" rel="noopener" href="${fileUrl}">Open</a>`;
+    it.innerHTML = `<div style="font-weight:700">${d.name}</div><div>${openEl}</div>`;
+    docsList.appendChild(it);
+  });
+}
+renderDocs();
+
+/* Local file preview (for testing before publishing) */
+const localFile = document.getElementById('localFile');
+const previewContainer = document.getElementById('previewContainer');
+localFile.addEventListener('change', (ev)=>{
+  const file = ev.target.files[0];
+  previewContainer.innerHTML = '';
+  if(!file) return;
+  const filename = file.name.toLowerCase();
+  const reader = new FileReader();
+  if(filename.endsWith('.pdf')){
+    reader.onload = (e)=>{
+      const url = e.target.result;
+      previewContainer.innerHTML = `<iframe src="${url}" style="width:100%;height:560px;border-radius:10px;border:0"></iframe>`;
+    }
+    reader.readAsDataURL(file);
+  } else {
+    // For pptx / docx show download link and basic info
+    const info = document.createElement('div');
+    info.className = 'empty';
+    info.innerHTML = `<strong>${file.name}</strong><div class="small muted">Local preview not available for this file type. Use PDF for in-browser view. You can still download to view.</div><div style="margin-top:8px"><a href="#" id="dlLocal">Download</a></div>`;
+    previewContainer.appendChild(info);
+    const dl = document.getElementById('dlLocal');
+    dl.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const url = URL.createObjectURL(file);
+      const a = document.createElement('a');
+      a.href = url; a.download = file.name;
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+  }
+});
+
+/* Contact form behaviour (uses mailto as fallback) */
+const contactForm = document.getElementById('contactForm');
+const contactNote = document.getElementById('contactNote');
+contactForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  const mailto = `mailto:${SITE_DATA.contactEmail}?subject=${encodeURIComponent('Portfolio contact from '+name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' ('+email+')')}`;
+  window.location.href = mailto;
+  contactNote.innerText = 'Opening your email client... (or copy this email: ' + SITE_DATA.contactEmail + ')';
+});
+
+/* Theme toggle (light/dark) */
+const themeToggle = document.getElementById('themeToggle');
+const root = document.getElementById('app');
+function setTheme(t){
+  root.setAttribute('data-theme', t);
+  themeToggle.innerText = t==='dark' ? '☀️' : '🌙';
+  localStorage.setItem('site-theme', t);
+}
+const savedTheme = localStorage.getItem('site-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+setTheme(savedTheme);
+themeToggle.addEventListener('click', ()=> setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark') );
+
+/* Modal controls */
+const modalBackdrop = document.getElementById('modalBackdrop');
+const closeModalBtn = document.getElementById('closeModal');
+function showModal(){
+  modalBackdrop.style.display = 'flex';
+  modalBackdrop.setAttribute('aria-hidden', 'false');
+}
+function closeModal(){
+  modalBackdrop.style.display = 'none';
+  modalBackdrop.setAttribute('aria-hidden', 'true');
+}
+closeModalBtn.addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+
+/* Accessibility: close modal on Escape */
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+/* Initial small content adjustments */
+document.getElementById('contactNote').innerText = 'Or email: ' + SITE_DATA.contactEmail;
+
+/* END */
+</script>
+
+</body>
+</html>
