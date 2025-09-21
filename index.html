@@ -1,414 +1,964 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Your Name — Engineering Student & Finance Projects</title>
-<meta name="description" content="Portfolio — engineering student focused on finance projects and competitions. Minimal, clean UI for sharing projects, PPTs, PDFs and docs." />
-<style>
-  /* Minimal, aesthetic styles — no frameworks needed */
-  :root{
-    --bg: #fbfbfd;
-    --panel: #ffffff;
-    --muted: #6b7280;
-    --accent: #2563eb; /* blue */
-    --glass: rgba(255,255,255,0.6);
-    --card-shadow: 0 6px 20px rgba(13,17,30,0.06);
-    --radius: 12px;
-    color-scheme: light;
-  }
-  [data-theme="dark"]{
-    --bg: #0b1020;
-    --panel: #071021;
-    --muted: #9ca3af;
-    --accent: #60a5fa;
-    --glass: rgba(255,255,255,0.03);
-    --card-shadow: 0 8px 30px rgba(2,6,23,0.6);
-    color-scheme: dark;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(180deg,var(--bg),var(--glass));
-    color:var(--muted);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding:32px;
-  }
-  .container{max-width:1100px;margin:0 auto;}
-  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
-  .brand{display:flex;gap:14px;align-items:center}
-  .logo{
-    width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;box-shadow:var(--card-shadow)
-  }
-  .brand h1{margin:0;font-size:18px;color:inherit}
-  .nav-actions{display:flex;gap:8px;align-items:center}
-  button.btn{
-    border:0;padding:10px 14px;border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;font-weight:600;
-  }
-  button.primary{background:var(--accent);color:white;box-shadow:0 6px 18px rgba(37,99,235,0.18)}
-  .hero{
-    display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin-bottom:28px;
-  }
-  .card{
-    background:var(--panel);border-radius:var(--radius);padding:22px;box-shadow:var(--card-shadow);
-  }
-  .tagline{color:var(--accent);font-weight:700;margin-bottom:10px}
-  .lead{font-size:18px;color:inherit;margin-bottom:18px}
-  .cta{display:flex;gap:10px}
-  .avatar{width:100%;height:100%;border-radius:10px;object-fit:cover}
-  .about{display:flex;gap:18px;align-items:flex-start}
-  .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-  .skill{padding:8px 10px;border-radius:999px;background:linear-gradient(180deg, rgba(0,0,0,0.03),rgba(0,0,0,0.01));font-size:13px;color:var(--muted)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
-  .project-card{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));cursor:pointer;transition:transform .18s ease, box-shadow .18s ease;}
-  .project-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.06)}
-  .project-title{font-weight:700;color:inherit;margin-bottom:8px}
-  .project-meta{font-size:13px;color:var(--muted)}
-  footer{margin-top:40px;text-align:center;color:var(--muted);font-size:13px}
-  .small{font-size:13px;color:var(--muted)}
-  /* modal */
-  .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
-  .modal{max-width:920px;width:100%;border-radius:12px;padding:18px;background:var(--panel);box-shadow:var(--card-shadow);max-height:88vh;overflow:auto}
-  .close{border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--muted)}
-  .doc-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-  .doc-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;border-radius:10px;background:linear-gradient(0deg, rgba(0,0,0,0.03), rgba(0,0,0,0.01))}
-  .doc-item a{font-weight:600;color:var(--accent);text-decoration:none}
-  /* responsive */
-  @media (max-width:900px){
-    .hero{grid-template-columns:1fr;gap:14px}
-  }
-  /* small helper */
-  .muted{color:var(--muted);font-size:14px}
-  input[type="file"]{display:none}
-  .uploader{display:flex;gap:8px;align-items:center}
-  .empty{opacity:.6;padding:18px;border-radius:10px;background:linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01))}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Chen - Finance Engineer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #0066ff;
+            --secondary: #00d4aa;
+            --accent: #ff6b6b;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-dark: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            --shadow: 0 20px 40px rgba(0,0,0,0.1);
+            --shadow-lg: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        [data-theme="dark"] {
+            --light: #1a1a1a;
+            --dark: #ffffff;
+            --gray-100: #2d2d2d;
+            --gray-200: #404040;
+            --gray-300: #525252;
+            --shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(26,26,26,0.8);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--gray-300);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Command Palette */
+        .cmd-palette {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 600px;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-300);
+        }
+
+        .cmd-palette.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .cmd-search {
+            width: 100%;
+            padding: 1.5rem;
+            border: none;
+            outline: none;
+            background: none;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--gray-300);
+            color: var(--dark);
+        }
+
+        .cmd-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cmd-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 1px solid var(--gray-200);
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cmd-item:hover {
+            background: var(--gray-100);
+        }
+
+        .cmd-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cmd-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,102,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,102,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--gray-700);
+        }
+
+        .hero-animation {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+
+        .number-counter {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .profile-card {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover .profile-image {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translateX(-5px);
+        }
+
+        .timeline-year {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content h3 {
+            margin: 0.5rem 0;
+            color: var(--dark);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-header {
+            padding: 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .project-category {
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-link {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .skill-bar {
+            width: 60px;
+            height: 4px;
+            background: var(--gray-200);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+
+        /* Documents Section */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .doc-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .doc-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .doc-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .doc-meta {
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .doc-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .doc-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .doc-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .doc-btn.secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .doc-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .contact-form {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: 10px;
+            background: transparent;
+            color: var(--dark);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: var(--gray-700);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -0.5rem;
+            left: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--primary);
+            background: var(--light);
+            padding: 0 0.5rem;
+        }
+
+        .form-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        [data-theme="dark"] footer {
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-animation {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .loading-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes loading {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-<div class="container" id="app" data-theme="light">
-  <!-- Header -->
-  <header>
-    <div class="brand">
-      <div class="logo" id="logo">NB</div>
-      <div>
-        <h1 id="siteName">Your Name</h1>
-        <div class="small muted">Engineering student • Finance projects & competitions</div>
-      </div>
-    </div>
-    <div class="nav-actions">
-      <button class="btn" id="themeToggle" title="Toggle light/dark">🌙</button>
-      <a class="btn primary" href="#projects">View Work</a>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="card">
-      <div class="tagline" id="tagline">Engineering Student • Finance Enthusiast • Problem Solver</div>
-      <div class="lead" id="intro">Hi — I'm <strong id="fullName">Your Name</strong>, a third-year engineering student building finance projects, research and trading tools. I enjoy quantitative analysis, clean UX, and transforming ideas into reproducible projects.</div>
-      <div class="cta">
-        <a class="btn primary" href="#projects">See Projects</a>
-        <a class="btn" href="#docs">Docs & PPTs</a>
-      </div>
-
-      <div style="margin-top:18px">
-        <h3 style="margin:0 0 8px 0">Skills</h3>
-        <div class="skills" id="skillsList">
-          <!-- filled by JS -->
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-animation">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
         </div>
-      </div>
     </div>
 
-    <aside class="card" style="display:flex;flex-direction:column;gap:12px;align-items:center">
-      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop&crop=faces" alt="profile" class="avatar" />
-      <div style="width:100%;display:flex;gap:8px;justify-content:space-between">
-        <a class="btn" href="mailto:you@example.com">Contact</a>
-        <a class="btn" target="_blank" rel="noopener" href="#">LinkedIn</a>
-      </div>
-      <div class="small muted" style="margin-top:6px;text-align:center">Tip: add your resume to the Docs section for direct download.</div>
-    </aside>
-  </section>
-
-  <!-- About + Projects -->
-  <section>
-    <div style="display:flex;justify-content:space-between;align-items:end;gap:12px">
-      <h2 id="projects">Projects & Competitions</h2>
-      <div class="small muted">Click a project to view details</div>
-    </div>
-
-    <div class="grid" id="projectsGrid">
-      <!-- cards injected by JS -->
-    </div>
-  </section>
-
-  <!-- Documents -->
-  <section style="margin-top:26px">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <h2 id="docs">Docs & PPTs</h2>
-      <div class="small muted">Host files in <code>/docs/</code> on this repo; edit SITE_DATA.docs[] to add entries.</div>
-    </div>
-
-    <div class="card" style="margin-top:12px">
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div class="muted">Uploaded documents</div>
-        <div class="doc-list" id="docsList"></div>
-
-        <div style="margin-top:10px;display:flex;align-items:center;gap:8px">
-          <label class="btn" for="localFile">Preview local file</label>
-          <input id="localFile" type="file" accept=".pdf,.ppt,.pptx,.docx" />
-          <div class="small muted">Local preview won't be published — to publish add file to repo/docs/ and update SITE_DATA.docs</div>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">AC</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#docs">Docs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark</span>
+            </button>
         </div>
+    </nav>
 
-        <div id="previewContainer" style="margin-top:12px"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section style="margin-top:24px;display:flex;gap:16px;flex-wrap:wrap">
-    <div class="card" style="flex:1;min-width:260px">
-      <h3>Get in touch</h3>
-      <form id="contactForm">
-        <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
-          <input type="text" id="name" placeholder="Your name" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required />
-          <input type="email" id="email" placeholder="Your email" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required />
-          <textarea id="message" placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" required></textarea>
-          <div style="display:flex;gap:8px">
-            <button type="submit" class="btn primary">Send</button>
-            <a class="btn" href="mailto:you@example.com">Email</a>
-          </div>
+    <!-- Command Palette -->
+    <div class="cmd-overlay" id="cmdOverlay"></div>
+    <div class="cmd-palette" id="cmdPalette">
+        <input type="text" class="cmd-search" placeholder="Type to search..." id="cmdSearch">
+        <div class="cmd-results" id="cmdResults">
+            <div class="cmd-item" data-target="#hero">
+                <i class="fas fa-home"></i>
+                <div>
+                    <div>Home</div>
+                    <small>Go to landing page</small>
+                </div>
+            </div>
+            <div class="cmd-item" data-target="#about">
+                <i class="fas fa-user"></i>
+                <div>
+                    <div>About Me</div>
+                    <small>Learn about my journey</small>
+                </div>
+            </div>
+            <div class="cmd-item" data-target="#projects">
+                <i class="fas fa-folder"></i>
+                <div>
+                    <div>Projects</div>
+                    <small>View my work and competitions</small>
+                </div>
+            </div>
+            <div class="cmd-item" data-target="#skills">
+                <i class="fas fa-code"></i>
+                <div>
+                    <div>Skills</div>
+                    <small>Technical expertise</small>
+                </div>
+            </div>
+            <div class="cmd-item" data-target="#docs">
+                <i class="fas fa-file"></i>
+                <div>
+                    <div>Documents</div>
+                    <small>PPTs, PDFs, and resources</small>
+                </div>
+            </div>
+            <div class="cmd-item" data-target="#contact">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <div>Contact</div>
+                    <small>Get in touch</small>
+                </div>
+            </div>
         </div>
-      </form>
-      <div id="contactNote" class="small muted" style="margin-top:8px"></div>
     </div>
 
-    <div class="card" style="min-width:260px">
-      <h3>How to publish documents</h3>
-      <ol style="margin:0 0 0 18px;color:var(--muted)">
-        <li>Upload your PDF / PPTX / DOCX to <code>/docs/</code> in the GitHub repo (via web UI or git).</li>
-        <li>Edit the `SITE_DATA.docs` array in <code>index.html</code> to add an entry with `{name: "...", file: "docs/yourfile.pdf"}`.</li>
-        <li>Commit & push; GitHub Pages will serve them and they'll appear here.</li>
-      </ol>
-      <div class="small muted" style="margin-top:8px">Tip: PDFs embed directly. PPTX will download on most browsers; convert to PDF for in-browser view.</div>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-background">
+            <canvas id="heroCanvas"></canvas>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Alex Chen</h1>
+            <p class="hero-subtitle">Finance Engineer | Data Analyst | Competition Winner</p>
+            <div class="hero-animation">
+                <div class="number-counter" id="returnsCounter">+0%</div>
+                <div class="number-counter" id="projectsCounter">0</div>
+                <div class="number-counter" id="competitionsCounter">0</div>
+            </div>
+            <a href="#about" class="cta-button">
+                <span>Explore My Work</span>
+                <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
 
-  <footer>
-    <div class="small muted">Built with a minimalist aesthetic • Edit content inside the file (SITE_DATA)</div>
-  </footer>
-</div>
+    <!-- About Section -->
+    <section class="section" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="profile-card">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f8f9fa'/%3E%3Ctext x='150' y='160' text-anchor='middle' font-family='Inter' font-size='16' fill='%23495057'%3EProfile Photo%3C/text%3E%3C/svg%3E" alt="Profile" class="profile-image">
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h3>Started Engineering Journey</h3>
+                        <p>Began third-year engineering studies with a focus on applying technical skills to financial markets.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h3>Finance Competitions</h3>
+                        <p>Participated in multiple finance competitions, winning regional trading simulation contests.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-content">
+                        <h3>Current Focus</h3>
+                        <p>Developing innovative trading algorithms and financial analysis tools while completing my engineering degree.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Modal -->
-<div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-hidden="true">
-  <div class="modal" role="document" aria-modal="true">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <h3 id="modalTitle" style="margin:0"></h3>
-        <div id="modalSubtitle" class="small muted"></div>
-      </div>
-      <div>
-        <button class="close" id="closeModal">✕</button>
-      </div>
-    </div>
-    <div id="modalBody" style="margin-top:12px"></div>
-  </div>
-</div>
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <h2 class="section-title">Projects & Competitions</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Algorithmic Trading Bot</h3>
+                    <p class="project-category">Trading Tools</p>
+                </div>
+                <div class="project-content">
+                    <p>Developed a Python-based trading bot that uses machine learning to predict stock price movements with 73% accuracy.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">APIs</span>
+                        <span class="tag">Backtesting</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Code</a>
+                        <a href="#" class="project-link">Presentation</a>
+                    </div>
+                </div>
+            </div>
 
-<script>
-/*
-  SITE_DATA: Edit this to add your name, projects, skills, and docs.
-  Usage:
-    - Add project objects to projects[]; each project can have title, tag, short, long, links[]
-    - Add docs to docs[] with {name, file} where file is the path under the repo (e.g. "docs/resume.pdf")
-*/
-const SITE_DATA = {
-  fullName: "Your Name",
-  tagline: "Engineering Student • Finance Enthusiast • Problem Solver",
-  intro: "Hi — I'm Your Name, a third-year engineering student focused on finance-related projects, research and competitions. I build reproducible analysis and clean interfaces.",
-  skills: ["Python", "Pandas", "Excel", "SQL", "Financial Modelling", "React (basic)", "Notion"],
-  projects: [
-    {
-      id: "p1",
-      title: "Equity Research — Stock XYZ",
-      tag: "Equity Research",
-      short: "Valuation and investment thesis for XYZ (NIFTY 100).",
-      long: "Built a fundamental research report covering cash flow analysis, DCF, multiples and sensitivity tables. Included backtested recommendation performance over 2020–2024.",
-      links: [
-        {label: "Read report (PDF)", url: "docs/eq_research_xyz.pdf"},
-        {label: "Presentation (PPTX)", url: "docs/eq_research_xyz_presentation.pdf"}
-      ]
-    },
-    {
-      id: "p2",
-      title: "Trading Journal Template",
-      tag: "Trading Tools",
-      short: "A Notion-based trading journal with performance analytics.",
-      long: "Design and implementation of a trading journal that calculates returns, risk metrics and logs trades for continuous improvement.",
-      links: [
-        {label: "Template (Notion)", url: "https://www.notion.so/"}
-      ]
-    }
-  ],
-  docs: [
-    {name: "Resume", file: "docs/resume.pdf"},
-    {name: "Research — XYZ", file: "docs/eq_research_xyz.pdf"}
-  ],
-  contactEmail: "you@example.com"
-};
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Equity Research Dashboard</h3>
+                    <p class="project-category">Equity Research</p>
+                </div>
+                <div class="project-content">
+                    <p>Interactive dashboard for fundamental analysis featuring real-time data visualization and automated DCF modeling.</p>
+                    <div class="project-tags">
+                        <span class="tag">Excel VBA</span>
+                        <span class="tag">Financial Modeling</span>
+                        <span class="tag">Data Viz</span>
+                        <span class="tag">APIs</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">Documentation</a>
+                    </div>
+                </div>
+            </div>
 
-/* --- Page population & behavior --- */
-const app = document.getElementById('app');
-document.getElementById('siteName').innerText = SITE_DATA.fullName;
-document.getElementById('tagline').innerText = SITE_DATA.tagline;
-document.getElementById('intro').innerText = SITE_DATA.intro;
-document.getElementById('fullName').innerText = SITE_DATA.fullName;
-document.getElementById('logo').innerText = SITE_DATA.fullName.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase();
-
-const skillsList = document.getElementById('skillsList');
-SITE_DATA.skills.forEach(s => {
-  const el = document.createElement('div');
-  el.className = 'skill';
-  el.innerText = s;
-  skillsList.appendChild(el);
-});
-
-// Projects
-const projectsGrid = document.getElementById('projectsGrid');
-SITE_DATA.projects.forEach(p => {
-  const card = document.createElement('div');
-  card.className = 'project-card card';
-  card.tabIndex = 0;
-  card.innerHTML = `
-    <div class="project-title">${p.title}</div>
-    <div class="project-meta">${p.tag} • ${p.short}</div>
-  `;
-  card.addEventListener('click', ()=>openProject(p));
-  card.addEventListener('keydown', (e)=>{ if(e.key==='Enter') openProject(p) });
-  projectsGrid.appendChild(card);
-});
-
-function openProject(p){
-  const mb = document.getElementById('modalBody');
-  document.getElementById('modalTitle').innerText = p.title;
-  document.getElementById('modalSubtitle').innerText = p.tag;
-  mb.innerHTML = `<p style="margin-top:0;color:var(--muted)">${p.long}</p>`;
-  if(p.links && p.links.length){
-    const list = document.createElement('div');
-    list.className = 'doc-list';
-    p.links.forEach(l=>{
-      const it = document.createElement('div');
-      it.className = 'doc-item';
-      let href = l.url;
-      // if file looks like docs/... then make relative link
-      it.innerHTML = `<div style="font-weight:600">${l.label}</div><div><a target="_blank" rel="noopener" href="${href}">Open</a></div>`;
-      list.appendChild(it);
-    });
-    mb.appendChild(list);
-  }
-  showModal();
-}
-
-// Docs list
-const docsList = document.getElementById('docsList');
-function renderDocs(){
-  docsList.innerHTML = '';
-  if(!SITE_DATA.docs || SITE_DATA.docs.length===0){
-    docsList.innerHTML = `<div class="empty">No documents listed. Add file paths to SITE_DATA.docs in this file.</div>`;
-    return;
-  }
-  SITE_DATA.docs.forEach(d=>{
-    const it = document.createElement('div');
-    it.className = 'doc-item';
-    const fileUrl = d.file;
-    // Show embed if PDF
-    let openEl = `<a target="_blank" rel="noopener" href="${fileUrl}">Open</a>`;
-    it.innerHTML = `<div style="font-weight:700">${d.name}</div><div>${openEl}</div>`;
-    docsList.appendChild(it);
-  });
-}
-renderDocs();
-
-/* Local file preview (for testing before publishing) */
-const localFile = document.getElementById('localFile');
-const previewContainer = document.getElementById('previewContainer');
-localFile.addEventListener('change', (ev)=>{
-  const file = ev.target.files[0];
-  previewContainer.innerHTML = '';
-  if(!file) return;
-  const filename = file.name.toLowerCase();
-  const reader = new FileReader();
-  if(filename.endsWith('.pdf')){
-    reader.onload = (e)=>{
-      const url = e.target.result;
-      previewContainer.innerHTML = `<iframe src="${url}" style="width:100%;height:560px;border-radius:10px;border:0"></iframe>`;
-    }
-    reader.readAsDataURL(file);
-  } else {
-    // For pptx / docx show download link and basic info
-    const info = document.createElement('div');
-    info.className = 'empty';
-    info.innerHTML = `<strong>${file.name}</strong><div class="small muted">Local preview not available for this file type. Use PDF for in-browser view. You can still download to view.</div><div style="margin-top:8px"><a href="#" id="dlLocal">Download</a></div>`;
-    previewContainer.appendChild(info);
-    const dl = document.getElementById('dlLocal');
-    dl.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const url = URL.createObjectURL(file);
-      const a = document.createElement('a');
-      a.href = url; a.download = file.name;
-      document.body.appendChild(a); a.click(); a.remove();
-    });
-  }
-});
-
-/* Contact form behaviour (uses mailto as fallback) */
-const contactForm = document.getElementById('contactForm');
-const contactNote = document.getElementById('contactNote');
-contactForm.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
-  const mailto = `mailto:${SITE_DATA.contactEmail}?subject=${encodeURIComponent('Portfolio contact from '+name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' ('+email+')')}`;
-  window.location.href = mailto;
-  contactNote.innerText = 'Opening your email client... (or copy this email: ' + SITE_DATA.contactEmail + ')';
-});
-
-/* Theme toggle (light/dark) */
-const themeToggle = document.getElementById('themeToggle');
-const root = document.getElementById('app');
-function setTheme(t){
-  root.setAttribute('data-theme', t);
-  themeToggle.innerText = t==='dark' ? '☀️' : '🌙';
-  localStorage.setItem('site-theme', t);
-}
-const savedTheme = localStorage.getItem('site-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-setTheme(savedTheme);
-themeToggle.addEventListener('click', ()=> setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark') );
-
-/* Modal controls */
-const modalBackdrop = document.getElementById('modalBackdrop');
-const closeModalBtn = document.getElementById('closeModal');
-function showModal(){
-  modalBackdrop.style.display = 'flex';
-  modalBackdrop.setAttribute('aria-hidden', 'false');
-}
-function closeModal(){
-  modalBackdrop.style.display = 'none';
-  modalBackdrop.setAttribute('aria-hidden', 'true');
-}
-closeModalBtn.addEventListener('click', closeModal);
-modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) closeModal(); });
-
-/* Accessibility: close modal on Escape */
-document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
-
-/* Initial small content adjustments */
-document.getElementById('contactNote').innerText = 'Or email: ' + SITE_DATA.contactEmail;
-
-/* END */
-</script>
-
-</body>
-</html>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Regional Trading Competition - 1st Place</h3>
+                    <p class="project-category">Finance Competitions</p>
+                </div>
+                <div class="project-content">
+                    <p>Won first place in the 2024 Regional Trading Simulation with a portfolio return of +47.3% over 3 months.</p>
+                    <div class="project-tags">
+                        <span class="tag">Options Trading</span>
